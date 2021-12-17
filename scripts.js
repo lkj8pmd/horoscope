@@ -5,6 +5,21 @@ function setHeader(s) {
     element.innerHTML = s;
 }
 
+function setNotice(n) {
+    let notice = document.getElementById("notice");
+    notice.innerHTML = n;
+}
+
+function setHoroscopeHeader(s) {
+    let element = document.getElementById("header2");
+    element.innerHTML = s;
+}
+
+function setHoroscope(s) {
+    let element = document.getElementById("horoscope");
+    element.innerHTML = s;
+}
+
 function getInput() {
     let text = document.getElementById("input").value;
     let list = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", 
@@ -12,10 +27,13 @@ function getInput() {
     text = text.toLowerCase();
     if(list.includes(text)) {
         sign = text;
+        setNotice("");
         getHoroscope();
     }
     else {
-        setHeader("Please enter a valid sign.");
+        setNotice("Please enter a valid sign.");
+        setHoroscopeHeader("");
+        setHoroscope("");
     } 
     
 }
@@ -35,7 +53,8 @@ async function getHoroscope() {
         })
         let json = await response.json();
         let reading = json[sign]["Today"];
-        setHeader(reading);
+        setHoroscopeHeader("today's horoscope for " + sign + ":");
+        setHoroscope(reading);
     }
     catch(error) {
         console.log(error);
